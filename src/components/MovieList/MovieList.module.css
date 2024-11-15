@@ -1,0 +1,21 @@
+.list {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.link {
+  text-decoration: none;
+  color: var(--accent-color);
+  display: flex;
+  gap: 10px;
+}
+.item {
+  width: fit-content;
+}
+.img {
+  width: 100px;
+}
+.title {
+  width: 50vw;
+}
