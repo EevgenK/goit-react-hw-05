@@ -3,6 +3,9 @@ import s from "./MovieDetailsPage.module.css";
 import { useEffect, useState } from "react";
 import { getMovieById } from "../../services/getApi";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import getBackGround from "../../services/getBackGround";
+import Loader from "../../components/Loader/Loader";
+import useLoaderAndError from "../../hooks/useLoaderAndError";
 const test = {
   adult: false,
   backdrop_path: "/2va32apQP97gvUxaMnL5wYt4CRB.jpg",
@@ -86,31 +89,34 @@ const test = {
   vote_count: 7799,
 };
 const MovieDetailsPage = () => {
-  const [movie, setMovie] = useState("");
-  const [backGround, setBackGround] = useState("");
+  const [movie, setMovie] = useState(null);
+  const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const getMoviesDetails = async () => {
       try {
+        setIsLoading(true);
         const data = await getMovieById(id);
-        console.log(data);
-        setBackGround(data.backdrop_path);
-        setMovie(data);
+        const style = getBackGround(data.backdrop_path);
+
+        setMovie({ ...data, backdrop_path: style });
+        console.log("hello from effect");
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     getMoviesDetails();
-  }, []);
-  const dynamicStyle = {
-    backgroundImage: `linear-gradient(to right, rgba(31.5, 10.5, 10.5, 1) calc((50vw - 170px) - 340px), rgba(31.5, 10.5, 10.5, 0.84) 50%, rgba(31.5, 10.5, 10.5, 0.84) 100%), url(https://image.tmdb.org/t/p/w500${backGround}.jpg)`,
-    backgroundSize: "contain",
-    backgroundPosition: "left 50%",
-  };
+  }, [id]);
 
-  return <div style={dynamicStyle}>{movie && <MovieCard items={movie} />}</div>;
+  console.log("render");
+  return (
+    <div style={movie?.backdrop_path}>
+      {isLoading ? <Loader /> : movie && <MovieCard items={movie} />}
+    </div>
+  );
 };
 
 export default MovieDetailsPage;

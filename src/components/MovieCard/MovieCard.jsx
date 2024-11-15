@@ -3,7 +3,7 @@ import s from "./MovieCard.module.css";
 const MovieCard = ({
   items: {
     poster_path,
-
+    belongs_to_collection,
     budget,
     title,
     overview,
@@ -17,7 +17,9 @@ const MovieCard = ({
   return (
     <div className={s.wrapper}>
       <img
-        src={`https://image.tmdb.org/t/p/w500${poster_path}.jpg`}
+        src={`https://image.tmdb.org/t/p/w500${
+          poster_path ? poster_path : belongs_to_collection.poster_path
+        }.jpg`}
         alt={title}
         className={s.img}
       />

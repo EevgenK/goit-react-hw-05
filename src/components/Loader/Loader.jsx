@@ -3,9 +3,10 @@ import s from "./Loader.module.css";
 
 const Loader = () => (
   <Grid
+    wrapperClass={s.wrap}
     visible={true}
-    height="150"
-    width="150"
+    height="200"
+    width="200"
     color="var(--background-accent)"
     ariaLabel="grid-loading"
     radius="12.5"

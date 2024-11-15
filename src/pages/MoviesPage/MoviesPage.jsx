@@ -4,6 +4,7 @@ import s from "./MoviesPage.module.css";
 import Loader from "../../components/Loader/Loader";
 import { getMovies } from "../../services/getApi";
 import MovieList from "../../components/MovieList/MovieList";
+import useLoaderAndError from "../../hooks/useLoaderAndError";
 // total_pages: 9,
 //     total_results: 170,
 const test = [
@@ -351,8 +352,7 @@ const test = [
 const MoviesPage = () => {
   const [search, setSearch] = useState("");
   const [films, setFilms] = useState([]);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
 
   useEffect(() => {
     if (search === "") return;
@@ -369,7 +369,7 @@ const MoviesPage = () => {
     };
 
     searchMovies();
-  }, [search]);
+  }, [search, setIsLoading]);
 
   const onHandleSearch = (query) => {
     setSearch("");
