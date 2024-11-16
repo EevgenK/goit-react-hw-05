@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import s from "./MovieList.module.css";
 import { defaultImg } from "../../services/defaultValues";
 
 const MovieList = ({ items }) => {
+  const location = useLocation();
   const elements = items.map(({ id, title, poster_path, release_date }) => {
     return (
       <li key={id} className={s.item}>
-        <Link className={s.link} to={`/movies/${id}`}>
+        <Link
+          className={s.link}
+          to={`/movies/${id}`}
+          state={{ from: location }}
+        >
           <img
             src={
               poster_path

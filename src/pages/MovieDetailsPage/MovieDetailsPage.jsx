@@ -1,6 +1,12 @@
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import s from "./MovieDetailsPage.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getMovieById } from "../../services/getApi";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import getBackGround from "../../services/getBackGround";
@@ -13,8 +19,12 @@ const MovieDetailsPage = () => {
   const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = useRef(location.state?.from ?? "/movies");
+  console.log(from);
 
   useEffect(() => {
+    if (!id) return;
     const getMoviesDetails = async () => {
       try {
         setIsLoading(true);
@@ -52,10 +62,14 @@ const MovieDetailsPage = () => {
               <h4>Additional information</h4>
               <ul>
                 <li>
-                  <Link to="cast">Cast</Link>
+                  <Link to="cast" state={from}>
+                    Cast
+                  </Link>
                 </li>
                 <li>
-                  <Link to="reviews ">Reviews </Link>
+                  <Link to="reviews" state={from}>
+                    Reviews
+                  </Link>
                 </li>
               </ul>
             </div>

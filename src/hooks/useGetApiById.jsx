@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const useGetApiById = (callback) => {
+const useGetApiById = (callback, arg) => {
   const [details, setDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log(Boolean(arg));
+    if (!arg) return;
     const getDetails = async () => {
       try {
         setIsLoading(true);
         const result = await callback();
-        console.log("hello effect");
-        console.log(result);
         setDetails(result);
       } catch (err) {
         console.error(err.message);
@@ -21,7 +21,7 @@ const useGetApiById = (callback) => {
       }
     };
     getDetails();
-  }, [setIsLoading, callback]);
+  }, [setIsLoading, callback, arg]);
   return { details, isLoading };
 };
 export default useGetApiById;

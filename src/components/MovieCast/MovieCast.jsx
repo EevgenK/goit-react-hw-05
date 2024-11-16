@@ -10,7 +10,7 @@ import useGetApiById from "../../hooks/useGetApiById";
 const MovieCast = () => {
   const { id } = useParams();
   const getCredits = useCallback(() => getMovieCredits(id), [id]);
-  const { details, isLoading } = useGetApiById(getCredits);
+  const { details, isLoading } = useGetApiById(getCredits, id);
 
   // const [cast, setCast] = useState([]);
   // const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
