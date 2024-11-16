@@ -1,9 +1,10 @@
+import { defaultImg } from "../../services/defaultValues";
 import s from "./MovieCard.module.css";
 
 const MovieCard = ({
   items: {
     poster_path,
-    belongs_to_collection,
+
     budget,
     title,
     overview,
@@ -17,28 +18,38 @@ const MovieCard = ({
   return (
     <div className={s.wrapper}>
       <img
-        src={`https://image.tmdb.org/t/p/w500${
-          poster_path ? poster_path : belongs_to_collection.poster_path
-        }.jpg`}
+        src={
+          poster_path
+            ? `https://image.tmdb.org/t/p/w500${poster_path}.jpg`
+            : defaultImg
+        }
         alt={title}
         className={s.img}
       />
       <div className={s.card}>
         <h1>
-          {title} ({year})
+          {title} {release_date && `(${year})`}
         </h1>
         <p>{`User Scores: ${Math.round(vote_average * 10)}%`}</p>
         <h2>Overview</h2>
         <p>{overview}</p>
-        <h3>Budget</h3>
-        <p>
-          {budget.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </p>
-        <h3>Genres</h3>
-        <ul className={s.genres}>{items}</ul>
+        {!!budget && (
+          <>
+            <h3>Budget</h3>
+            <p>
+              {budget.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </p>
+          </>
+        )}
+        {!!genres.length && (
+          <div>
+            <h3>Genres</h3>
+            <ul className={s.genres}>{items}</ul>
+          </div>
+        )}
       </div>
     </div>
   );

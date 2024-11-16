@@ -11,11 +11,37 @@
   gap: 10px;
 }
 .item {
-  width: fit-content;
+  /* border: 5px solid var(--background-accent); */
+  padding: 6px 8px;
+  transition: box-shadow var(--animation-mode);
+  &:hover,
+  &:focus {
+    box-shadow: 3px 8px 24px 29px var(--background-accent);
+  }
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .img {
   width: 100px;
 }
-.title {
-  width: 50vw;
+
+@media (min-width: 768px) {
+  .list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .item {
+    width: 40%;
+  }
+  .img {
+    width: 150px;
+  }
+}
+@media (min-width: 1280px) {
+  .item {
+    width: 30%;
+  }
 }

@@ -1,0 +1,6 @@
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+}

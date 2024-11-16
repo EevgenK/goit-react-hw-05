@@ -4,10 +4,9 @@ section {
   padding: 0px 0px 85px 0px;
 }
 .container {
-  text-align: center;
   width: 320px;
   padding: 0px 20px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 @media (min-width: 360px) {
