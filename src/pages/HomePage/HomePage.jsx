@@ -5,6 +5,7 @@ import { getTrendMovies } from "../../services/getApi";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader/Loader";
 import MovieList from "../../components/MovieList/MovieList";
+import Notification from "../../components/Notification/Notification";
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
@@ -30,6 +31,11 @@ const HomePage = () => {
   return (
     <div className="container">
       <h1 className={s.title}>Trending today</h1>
+      {error && (
+        <Notification>
+          Something went wrong! Please try again later
+        </Notification>
+      )}
       {isLoading ? <Loader /> : films && <MovieList items={films} />}
     </div>
   );
