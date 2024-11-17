@@ -1,16 +1,16 @@
 import { useCallback } from "react";
 import { getMovieReviews } from "../../services/getApi";
-import s from "./MovieReviews.module.css";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { defaultImg } from "../../services/defaultValues";
 import useGetApiById from "../../hooks/useGetApiById";
 import Notification from "../Notification/Notification";
+import s from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { id } = useParams();
   const getCredits = useCallback(() => getMovieReviews(id), [id]);
-  const { details, isLoading } = useGetApiById(getCredits);
+  const { details, isLoading } = useGetApiById(getCredits, id);
   // const [cast, setCast] = useState([]);
   // const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
 
@@ -33,7 +33,9 @@ const MovieReviews = () => {
   //   }, [id, setError, setIsLoading]);
 
   const items = !details.length ? (
-    <Notification>We don`t have any reviews on this movie</Notification>
+    <Notification>
+      <p>We don`t have any reviews on this movie</p>
+    </Notification>
   ) : (
     details.map(({ id, author_details, author, content }) => {
       return (

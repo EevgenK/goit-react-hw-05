@@ -6,7 +6,6 @@ const useGetApiById = (callback, arg) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log(Boolean(arg));
     if (!arg) return;
     const getDetails = async () => {
       try {

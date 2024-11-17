@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import s from "./HomePage.module.css";
+import toast from "react-hot-toast";
 import useLoaderAndError from "../../hooks/useLoaderAndError";
 import { getTrendMovies } from "../../services/getApi";
-import toast from "react-hot-toast";
+
 import Loader from "../../components/Loader/Loader";
 import MovieList from "../../components/MovieList/MovieList";
 import Notification from "../../components/Notification/Notification";
+
+import s from "./HomePage.module.css";
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
@@ -29,15 +31,15 @@ const HomePage = () => {
     getPopularMovies();
   }, [setError, setIsLoading]);
   return (
-    <div className="container">
+    <main className="container">
       <h1 className={s.title}>Trending today</h1>
       {error && (
         <Notification>
-          Something went wrong! Please try again later
+          <p>Something went wrong! Please try again later</p>
         </Notification>
       )}
-      {isLoading ? <Loader /> : films && <MovieList items={films} />}
-    </div>
+      {isLoading ? <Loader /> : films.length && <MovieList items={films} />}
+    </main>
   );
 };
 

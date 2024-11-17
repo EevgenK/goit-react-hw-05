@@ -4,6 +4,7 @@ import s from "./SearchForm.module.css";
 
 const SearchForm = ({ onSubmit }) => {
   const [search, setSearch] = useState("");
+
   const onHandleChange = (e) => {
     const { value } = e.target;
     setSearch(value);

@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import Notification from "../../components/Notification/Notification";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import Loader from "../../components/Loader/Loader";
 import MovieList from "../../components/MovieList/MovieList";
 import useLoaderAndError from "../../hooks/useLoaderAndError";
-
 import { getMovies } from "../../services/getApi";
-import s from "./MoviesPage.module.css";
-import Notification from "../../components/Notification/Notification";
 
 const MoviesPage = () => {
-  // const [search, setSearch] = useState("");
   const [films, setFilms] = useState([]);
   const { error, setError, isLoading, setIsLoading } = useLoaderAndError();
   const [searchMoviesList, setSearchMoviesList] = useSearchParams();
-  const search = searchMoviesList.get("search");
+  const search = searchMoviesList.get("search") ?? "";
 
   useEffect(() => {
     if (!search) return;
@@ -47,22 +43,21 @@ const MoviesPage = () => {
   const onHandleSearch = (query) => {
     setSearchMoviesList("");
     if (query === "") {
-      setError(true);
       toast.error("Sorry, the search-bar can't be empty! Please, try again.");
       return;
     }
     setSearchMoviesList({ search: [query] });
   };
   return (
-    <div className="container">
+    <main className="container">
       <SearchForm onSubmit={onHandleSearch} />
       {error && (
         <Notification>
-          Something went wrong! Please try again later
+          <p>Something went wrong! Please try again later</p>
         </Notification>
       )}
-      {isLoading ? <Loader /> : films && <MovieList items={films} />}
-    </div>
+      {isLoading ? <Loader /> : !!films.length && <MovieList items={films} />}
+    </main>
   );
 };
 

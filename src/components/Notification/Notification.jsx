@@ -1,7 +1,13 @@
+import { FaSadTear } from "react-icons/fa";
 import s from "./Notification.module.css";
 
 const Notification = ({ children }) => {
-  return <p className={s.notification}>{children}</p>;
+  return (
+    <div className={s.notification}>
+      <FaSadTear className={s.icon} />
+      {children}
+    </div>
+  );
 };
 
 export default Notification;

@@ -4,7 +4,6 @@ import s from "./MovieCard.module.css";
 const MovieCard = ({
   items: {
     poster_path,
-
     budget,
     title,
     overview,
@@ -31,8 +30,12 @@ const MovieCard = ({
           {title} {release_date && `(${year})`}
         </h1>
         <p>{`User Scores: ${Math.round(vote_average * 10)}%`}</p>
-        <h2>Overview</h2>
-        <p>{overview}</p>
+        {overview && (
+          <div>
+            <h2>Overview</h2>
+            <p>{overview}</p>
+          </div>
+        )}
         {!!budget && (
           <>
             <h3>Budget</h3>
